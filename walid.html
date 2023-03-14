@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>walidacja danych</title>
+	<meta charset='utf-8'>
+	<script src='wa.js'></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>imię:</td>
+			<td><input type="text" name="imie" id="imie" required>*</td>
+		</tr>
+		<tr>
+			<td>nazwisko:</td>
+			<td><input type="text" name="nazwisko" id="nazwisko" required>*</td>
+		</tr>
+		<tr>
+			<td>data urodzenia:</td>
+			<td><input type="date" name="data-urodzenia" id="data-urodzenia" required>*</td>
+		</tr>
+	</table>
+	<input type="button" value="sprawdź" onclick="validateData()">
+	
+	<script>
+		function validateData() {
+			// Ustawienie flagi na true - zakładamy, że wszystkie pola zostały wypełnione poprawnie
+			let isValid = true;
+
+			// Zmienna przechowująca listę pól, w których nic nie zostało wpisane
+			let missingFields = "";
+
+			// Sprawdzenie pola "imie"
+			const imieInput = document.getElementById("imie");
+			const imieValue = imieInput.value.trim();
+			if (imieValue === "" || !/^[a-zA-Z]+$/.test(imieValue)) {
+				missingFields += "imie\n";
+				isValid = false;
+				imieInput.classList.add("invalid");
+			} else {
+				imieInput.classList.remove("invalid");
+			}
+
+			// Sprawdzenie pola "nazwisko"
+			const nazwiskoInput = document.getElementById("nazwisko");
+			const nazwiskoValue = nazwiskoInput.value.trim();
+			if (nazwiskoValue === "" || !/^[a-zA-Z]+$/.test(nazwiskoValue)) {
+				missingFields += "nazwisko\n";
+				isValid = false;
+				nazwiskoInput.classList.add("invalid");
+			} else {
+				nazwiskoInput.classList.remove("invalid");
+			}
+
+			// Sprawdzenie pola "data urodzenia"
+			const dataUrodzeniaInput = document.getElementById("data-urodzenia");
+			const dataUrodzeniaValue = dataUrodzeniaInput.value.trim();
+			if (dataUrodzeniaValue === "") {
+				missingFields += "data urodzenia\n";
+				isValid = false;
+				dataUrodzeniaInput.classList.add("invalid");
+			} else {
+				dataUrodzeniaInput.classList.remove("invalid");
+			}
+
+			// Wyświetlenie komunikatu o błędach lub potwierdzenie poprawności danych
+			if (isValid) {
+				alert("Dane zostały poprawnie wypełnione.");
+			} else {
+				alert("Proszę wypełnić wymagane pola:\n" + missingFields);
+			}
+		}
+	</script>
+</body>
+</html>
